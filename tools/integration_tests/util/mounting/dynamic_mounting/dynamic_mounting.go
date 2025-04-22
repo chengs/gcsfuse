@@ -33,7 +33,7 @@ import (
 // we can run the grpc related e2e test.
 const PrefixBucketForDynamicMountingTest = "golang-grpc-test-gcsfuse-dynamic-mounting-test-"
 
-var testBucketForDynamicMounting = PrefixBucketForDynamicMountingTest + setup.GenerateRandomString(5)
+var testBucketForDynamicMounting = PrefixBucketForDynamicMountingTest + operations.GenerateRandomString(5)
 
 func MountGcsfuseWithDynamicMounting(flags []string) (err error) {
 	defaultArg := []string{"--log-severity=trace",
