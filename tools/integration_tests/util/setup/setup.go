@@ -19,7 +19,6 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"math/rand"
 	"os"
 	"os/exec"
 	"path"
@@ -28,7 +27,6 @@ import (
 	"strconv"
 	"strings"
 	"testing"
-	"time"
 
 	"cloud.google.com/go/storage"
 	"github.com/googlecloudplatform/gcsfuse/v2/tools/integration_tests/util/operations"
@@ -43,12 +41,10 @@ var mountedDirectory = flag.String("mountedDirectory", "", "The GCSFuse mounted 
 var integrationTest = flag.Bool("integrationTest", false, "Run tests only when the flag value is true.")
 var testInstalledPackage = flag.Bool("testInstalledPackage", false, "[Optional] Run tests on the package pre-installed on the host machine. By default, integration tests build a new package to run the tests.")
 var testOnTPCEndPoint = flag.Bool("testOnTPCEndPoint", false, "Run tests on TPC endpoint only when the flag value is true.")
-var seededRand *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 const (
 	FilePermission_0600      = 0600
 	DirPermission_0755       = 0755
-	Charset                  = "abcdefghijklmnopqrstuvwxyz0123456789"
 	PathEnvVariable          = "PATH"
 	GCSFuseLogFilePrefix     = "gcsfuse-failed-integration-test-logs-"
 	ProxyServerLogFilePrefix = "proxy-server-failed-integration-test-logs-"
@@ -216,14 +212,6 @@ func ExecuteTest(m *testing.M) (successCode int) {
 	successCode = m.Run()
 
 	return successCode
-}
-
-func GenerateRandomString(length int) string {
-	b := make([]byte, length)
-	for i := range b {
-		b[i] = Charset[seededRand.Intn(len(Charset))]
-	}
-	return string(b)
 }
 
 func UnMountBucket() {
