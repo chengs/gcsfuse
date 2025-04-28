@@ -384,8 +384,7 @@ func (f *FileInode) Source() *gcs.MinObject {
 func (f *FileInode) SourceGenerationIsAuthoritative() bool {
 	// Source generation is authoritative if:
 	//   1.  No pending writes exists on the inode (both content and bwh are nil).
-	//   2.  The bucket is zonal and there are no pending writes in the temporary file.
-	return (f.content == nil && f.bwh == nil) || (f.bucket.BucketType().Zonal && f.content == nil)
+	return f.content == nil && f.bwh == nil
 }
 
 // Equivalent to the generation returned by f.Source().
