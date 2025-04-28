@@ -21,7 +21,6 @@ import (
 	"github.com/googlecloudplatform/gcsfuse/v2/tools/integration_tests/util/operations"
 	"github.com/googlecloudplatform/gcsfuse/v2/tools/integration_tests/util/setup"
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 	"log"
 	"path"
@@ -63,7 +62,7 @@ func (t *unfinalizedObjectReads) TestUnfinalizedObjectsCantBeRead() {
 	// Read un-finalized object.
 	content, err := operations.ReadFile(path.Join(t.testDirPath, t.fileName))
 
-	require.Error(t.T(), err)
+	assert.Error(t.T(), err)
 	assert.ErrorContains(t.T(), err, syscall.ENOTSUP.Error())
 	assert.Empty(t.T(), content)
 }
