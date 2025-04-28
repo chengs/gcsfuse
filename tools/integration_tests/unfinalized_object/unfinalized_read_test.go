@@ -73,7 +73,7 @@ func (t *unfinalizedObjectReads) TestUnfinalizedObjectsCantBeRead() {
 ////////////////////////////////////////////////////////////////////////
 
 func TestUnfinalizedObjectReadTest(t *testing.T) {
-	ts := &unfinalizedObjectOperations{ctx: context.Background()}
+	ts := &unfinalizedObjectReads{ctx: context.Background()}
 	// Create storage client before running tests.
 	closeStorageClient := client.CreateStorageClientWithCancel(&ts.ctx, &ts.storageClient)
 	defer func() {
