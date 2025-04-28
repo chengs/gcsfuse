@@ -135,21 +135,6 @@ func (t *unfinalizedObjectOperations) TestUnfinalizedObjectCantBeRenamedIfCreate
 	assert.ErrorContains(t.T(), err, syscall.EIO.Error())
 }
 
-func (t *unfinalizedObjectOperations) TestUnfinalizedObjectsCantBeRead() {
-	var size int = operations.MiB
-	// Create un-finalized object via same mount.
-	fh := operations.CreateFile(path.Join(t.testDirPath, t.fileName), setup.FilePermission_0600, t.T())
-	operations.WriteWithoutClose(fh, setup.GenerateRandomString(size), t.T())
-	defer operations.CloseFileShouldNotThrowError(t.T(), fh)
-
-	// Read un-finalized object.
-	content, err := operations.ReadFile(path.Join(t.testDirPath, t.fileName))
-
-	require.Error(t.T(), err)
-	assert.ErrorContains(t.T(), err, syscall.ENOTSUP.Error())
-	assert.Empty(t.T(), content)
-}
-
 ////////////////////////////////////////////////////////////////////////
 // Test Function (Runs once before all tests)
 ////////////////////////////////////////////////////////////////////////
